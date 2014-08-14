@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <constant name="struts.ui.templateDir" value="template"/>
+  <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+  <constant name="struts.devMode" value="true" />
+  <constant name="struts.action.extension" value="action" /> 
+  <include file="struts-default.xml" />
+  
+  <package name="init" extends="struts-default">
+    <default-interceptor-ref name="defaultStack"/>
+  </package>
+
+  <package name="log" namespace="/w/login" extends="struts-default">
+    <default-interceptor-ref name="defaultStack"/>
+    <action name="stations" class="gov.va.med.lom.login.struts.action.LoginAction" method="stations">
+      <result name="success">/jsp/json.jsp</result>
+    </action>    
+    <action name="logout" class="gov.va.med.lom.login.struts.action.LoginAction" method="logout">
+      <result name="success">/jsp/json.jsp</result>
+    </action>
+    <action name="divisions" class="gov.va.med.lom.avs.client.action.UserAction" method="divisions">
+      <result name="success">/jsp/json.jsp</result>
+    </action>      
+    <action name="defaultDivision" class="gov.va.med.lom.avs.client.action.UserAction" method="defaultDivision">
+      <result name="success">/jsp/json.jsp</result>
+    </action>    
+  </package>    
+    
+  <package name="user" namespace="/w/s/user" extends="struts-default">
+    <default-interceptor-ref name="defaultStack"/>
+    <action name="userInfo" class="gov.va.med.lom.login.struts.action.UserAction" method="userInfo">
+      <result name="success">/jsp/json.jsp</result>
+    </action>    
+    <action name="userClasses" class="gov.va.med.lom.avs.client.action.UserAction" method="userClasses">
+      <result name="success">/jsp/json.jsp</result>
+    </action>     
+    <action name="isUserAdmin" class="gov.va.med.lom.avs.client.action.UserAction" method="isUserAdmin">
+      <result name="success">/jsp/json.jsp</result>
+    </action>     
+  </package>
+  
+  <package name="patient" namespace="/w/s/patient" extends="struts-default">
+    <default-interceptor-ref name="defaultStack"/>
+    <action name="patientList" class="gov.va.med.lom.avs.client.action.PatientAction" method="patientList">
+      <result name="success">/jsp/json.jsp</result>
+    </action>       
+    <action name="patientInfo" class="gov.va.med.lom.avs.client.action.PatientAction" method="patientInfo">
+      <result name="success">/jsp/json.jsp</result>
+    </action>  
+    <action name="patientEncounters" class="gov.va.med.lom.avs.client.action.PatientAction" method="patientEncounters">
+      <result name="success">/jsp/json.jsp</result>
+    </action>       
+  </package>  
+    
+  <package name="infosheets" namespace="/w/s/infosheets" extends="struts-default">
+    <default-interceptor-ref name="defaultStack"/>
+    <action name="kramesSearchContent" class="gov.va.med.lom.avs.client.action.InfoSheetsAction" method="kramesSearchContent">
+      <result name="success">/jsp/json.jsp</result>
+    </action>  
+    <action name="kramesGetContent" class="gov.va.med.lom.avs.client.action.InfoSheetsAction" method="kramesGetContent">
+      <result name="success">/jsp/json.jsp</result>
+    </action>   
+  </package>      
+  
+  <package name="reports" namespace="/w/s/reports" extends="struts-default">
+    <default-interceptor-ref name="defaultStack"/>
+    <action name="clinicSummary" class="gov.va.med.lom.avs.report.dashboard.ClinicSummaryAction" method="clinicSummary">
+      <result name="success">/jsp/json.jsp</result>
+    </action>  
+    <action name="providerSummary" class="gov.va.med.lom.avs.report.dashboard.ProviderSummaryAction" method="providerSummary">
+      <result name="success">/jsp/json.jsp</result>
+    </action>  
+    <action name="encounterReport" class="gov.va.med.lom.avs.report.dashboard.EncounterReportAction" method="encounterReport">
+      <result name="success">/jsp/json.jsp</result>
+    </action>     
+  </package>   
+    
+  <package name="labs" namespace="/w/s/labs" extends="struts-default">
+    <default-interceptor-ref name="defaultStack"/>
+    <action name="charts" class="gov.va.med.lom.avs.chart.action.LabChartsAction" method="charts">
+      <result name="success">/jsp/json.jsp</result>
+    </action>    
+    <action name="pulseChart" class="gov.va.med.lom.avs.chart.action.LabChartsAction" method="pulseChart">
+      <result name="success">/jsp/json.jsp</result>
+    </action>  
+    <action name="bpChart" class="gov.va.med.lom.avs.chart.action.LabChartsAction" method="bpChart">
+      <result name="success">/jsp/json.jsp</result>
+    </action>
+    <action name="weightChart" class="gov.va.med.lom.avs.chart.action.LabChartsAction" method="weightChart">
+      <result name="success">/jsp/json.jsp</result>
+    </action>       
+    <action name="bmiChart" class="gov.va.med.lom.avs.chart.action.LabChartsAction" method="bmiChart">
+      <result name="success">/jsp/json.jsp</result>
+    </action>     
+    <action name="totalCholesterolChart" class="gov.va.med.lom.avs.chart.action.LabChartsAction" method="totalCholesterolChart">
+      <result name="success">/jsp/json.jsp</result>
+    </action>  
+    <action name="ldlChart" class="gov.va.med.lom.avs.chart.action.LabChartsAction" method="ldlChart">
+      <result name="success">/jsp/json.jsp</result>
+    </action>  
+    <action name="hdlChart" class="gov.va.med.lom.avs.chart.action.LabChartsAction" method="hdlChart">
+      <result name="success">/jsp/json.jsp</result>
+    </action>  
+    <action name="triglyceridesChart" class="gov.va.med.lom.avs.chart.action.LabChartsAction" method="triglyceridesChart">
+      <result name="success">/jsp/json.jsp</result>
+    </action>  
+    <action name="hgbA1cChart" class="gov.va.med.lom.avs.chart.action.LabChartsAction" method="hgbA1cChart">
+      <result name="success">/jsp/json.jsp</result>
+    </action>  
+    <action name="creatinineChart" class="gov.va.med.lom.avs.chart.action.LabChartsAction" method="creatinineChart">
+      <result name="success">/jsp/json.jsp</result>
+    </action>  
+    <action name="egfrChart" class="gov.va.med.lom.avs.chart.action.LabChartsAction" method="egfrChart">
+      <result name="success">/jsp/json.jsp</result>
+    </action>  
+    <action name="hgbChart" class="gov.va.med.lom.avs.chart.action.LabChartsAction" method="hgbChart">
+      <result name="success">/jsp/json.jsp</result>
+    </action>  
+    <action name="plateletsChart" class="gov.va.med.lom.avs.chart.action.LabChartsAction" method="plateletsChart">
+      <result name="success">/jsp/json.jsp</result>
+    </action>     
+    <action name="psaChart" class="gov.va.med.lom.avs.chart.action.LabChartsAction" method="psaChart">
+      <result name="success">/jsp/json.jsp</result>
+    </action>            
+  </package>     
+  
+  <package name="avs" namespace="/w/s/avs" extends="json-default">
+
+	<interceptors>
+    <interceptor name="json" class="org.apache.struts2.json.JSONInterceptor"/>
+		<interceptor-stack name="appDefaultStack">
+    		<interceptor-ref name="defaultStack">
+	     		<param name="exception.logEnabled">true</param>
+    	 		<param name="exception.logLevel">ERROR</param>
+    		</interceptor-ref>
+ 		</interceptor-stack>
+  </interceptors>
+
+	<default-interceptor-ref name="appDefaultStack" />
+
+    <global-results>
+      <result name="exception">/w/exception.jsp</result>
+    </global-results>
+
+    <global-exception-mappings>
+      <exception-mapping exception="java.lang.Exception" result="exception" />
+    </global-exception-mappings>
+
+    <action name="demographics" class="gov.va.med.lom.avs.client.action.DemographicsAction" method="run">
+      <result name="success">/jsp/json.jsp</result>
+    </action>
+    
+    <action name="getClientStrings" class="gov.va.med.lom.avs.client.action.SheetAction" method="getClientStrings">
+      <result name="success">/jsp/json.jsp</result>
+    </action>    
+
+    <action name="avs" class="gov.va.med.lom.avs.client.action.SheetAction" method="avs">
+      <result name="success">/jsp/json.jsp</result>
+    </action>
+    
+    <action name="pvs" class="gov.va.med.lom.avs.client.action.SheetAction" method="pvs">
+      <result name="success">/jsp/json.jsp</result>
+    </action>    
+    
+    <action name="setCustomContent" class="gov.va.med.lom.avs.client.action.SheetAction" method="setCustomContent">
+      <result name="success">/jsp/json.jsp</result>
+    </action>        
+    
+    <action name="setLocked" class="gov.va.med.lom.avs.client.action.SheetAction" method="setLocked">
+      <result name="success">/jsp/json.jsp</result>
+    </action>           
+    
+    <action name="saveComments" class="gov.va.med.lom.avs.client.action.SheetAction" method="saveComments">
+      <result name="success">/jsp/json.jsp</result>
+    </action>    
+    
+    <action name="pdf" class="gov.va.med.lom.avs.client.action.SheetAction" method="createPdf">
+      <result name="success">/jsp/json.jsp</result>
+    </action>    
+    
+    <action name="printPdf" class="gov.va.med.lom.avs.client.action.SheetAction" method="printPdf">
+      <result name="success">/jsp/json.jsp</result>
+    </action>     
+    
+    <action name="setDefaultPrinter" class="gov.va.med.lom.avs.client.action.SheetAction" method="setDefaultPrinter">
+      <interceptor-ref name="appDefaultStack" />
+      <interceptor-ref name="json" />    
+      <result name="success">/jsp/json.jsp</result>
+    </action>
+    
+    <action name="getDefaultPrinter" class="gov.va.med.lom.avs.client.action.SheetAction" method="getDefaultPrinter">
+      <result name="success">/jsp/json.jsp</result>
+    </action>   
+    
+    <action name="cacheComments" class="gov.va.med.lom.avs.client.action.SheetAction" method="cacheComments">
+      <result name="success">/jsp/json.jsp</result>
+    </action>        
+    
+    <action name="getRemoteMeds" class="gov.va.med.lom.avs.client.action.SheetAction" method="getRemoteMedsJson">
+      <result name="success">/jsp/json.jsp</result>
+    </action>      
+    
+    <action name="setRemoteVaMedsHtml" class="gov.va.med.lom.avs.client.action.SheetAction" method="setRemoteVaMedsHtml">
+      <result name="success">/jsp/json.jsp</result>
+    </action>     
+    
+    <action name="setRemoteNonVAMedsHtml" class="gov.va.med.lom.avs.client.action.SheetAction" method="setRemoteNonVAMedsHtml">
+      <result name="success">/jsp/json.jsp</result>
+    </action>     
+
+    <action name="get-header-footer" class="gov.va.med.lom.avs.client.action.HeaderFooterAction" method="get">
+      <result name="success">/jsp/json.jsp</result>
+    </action>
+
+    <action name="save-header-footer" class="gov.va.med.lom.avs.client.action.HeaderFooterAction" method="save">
+      <result name="success">/jsp/json.jsp</result>
+    </action>
+    
+    <action name="fetch-translations" class="gov.va.med.lom.avs.client.action.TranslationsAction" method="fetch">
+      <result name="success">/jsp/json.jsp</result>
+    </action>
+
+    <action name="update-translation" class="gov.va.med.lom.avs.client.action.TranslationsAction" method="update">
+	    <interceptor-ref name="appDefaultStack" />
+	    <interceptor-ref name="json" />
+      <result name="success">/jsp/json.jsp</result>
+    </action>
+
+    <action name="delete-translation" class="gov.va.med.lom.avs.client.action.TranslationsAction" method="delete">
+      <result name="success">/jsp/json.jsp</result>
+    </action>
+
+    <action name="fetch-services" class="gov.va.med.lom.avs.client.action.ServicesAction" method="fetch">
+      <result name="success">/jsp/json.jsp</result>
+    </action>
+    
+    <action name="add-service" class="gov.va.med.lom.avs.client.action.ServicesAction" method="add">
+      <interceptor-ref name="appDefaultStack" />
+      <interceptor-ref name="json" />
+      <result name="success">/jsp/json.jsp</result>
+    </action>    
+
+    <action name="update-service" class="gov.va.med.lom.avs.client.action.ServicesAction" method="update">
+      <interceptor-ref name="appDefaultStack" />
+      <interceptor-ref name="json" />
+      <result name="success">/jsp/json.jsp</result>
+    </action>
+
+    <action name="delete-service" class="gov.va.med.lom.avs.client.action.ServicesAction" method="delete">
+      <interceptor-ref name="appDefaultStack" />
+      <interceptor-ref name="json" />
+      <result name="success">/jsp/json.jsp</result>
+    </action>
+
+    <action name="save-disclaimers" class="gov.va.med.lom.avs.client.action.DisclaimersAction" method="save">
+      <result name="success">/jsp/json.jsp</result>
+    </action>
+
+    <action name="fetch-disclaimers" class="gov.va.med.lom.avs.client.action.DisclaimersAction" method="fetch">
+      <result name="success">/jsp/json.jsp</result>
+    </action>
+
+    <action name="search-clinics" class="gov.va.med.lom.avs.client.action.ClinicsAction" method="search">
+      <result name="success">/jsp/json.jsp</result>
+    </action>
+    
+    <action name="find-printers" class="gov.va.med.lom.avs.client.action.VistaPrintersAction" method="fetch">
+      <result name="success">/jsp/json.jsp</result>
+    </action>  
+    
+    <action name="fetch-settings" class="gov.va.med.lom.avs.client.action.SettingsAction" method="fetchSettings">
+      <result name="success">/jsp/json.jsp</result>
+    </action>          
+    
+    <action name="fetch-settings-grid" class="gov.va.med.lom.avs.client.action.SettingsAction" method="fetchSettingsForGrid">
+      <result name="success">/jsp/json.jsp</result>
+    </action>          
+    
+    <action name="save-settings" class="gov.va.med.lom.avs.client.action.SettingsAction" method="updateSettings">
+      <interceptor-ref name="appDefaultStack" />
+      <interceptor-ref name="json" />    
+      <result name="success">/jsp/json.jsp</result>
+    </action>     
+    
+    <action name="fetch-tiuNoteText" class="gov.va.med.lom.avs.client.action.SettingsAction" method="fetchTiuNoteText">
+      <result name="success">/jsp/json.jsp</result>
+    </action>          
+    
+    <action name="save-tiuNoteText" class="gov.va.med.lom.avs.client.action.SettingsAction" method="updateTiuNoteText">
+      <result name="success">/jsp/json.jsp</result>
+    </action>     
+    
+    <action name="fetch-labels-grid" class="gov.va.med.lom.avs.client.action.SettingsAction" method="fetchLabelsForGrid">
+      <result name="success">/jsp/json.jsp</result>
+    </action>          
+    
+    <action name="update-label" class="gov.va.med.lom.avs.client.action.SettingsAction" method="updateLabel">
+      <interceptor-ref name="appDefaultStack" />
+      <interceptor-ref name="json" />    
+      <result name="success">/jsp/json.jsp</result>
+    </action>     
+    
+    <action name="languages" class="gov.va.med.lom.avs.client.action.SettingsAction" method="languages">
+      <result name="success">/jsp/json.jsp</result>
+    </action>       
+        
+  </package>
+
+</struts>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<connection-factories>
+    <no-tx-connection-factory>
+    <rar-name>vlj.rar</rar-name>
+      <connection-definition>javax.resource.cci.ConnectionFactory</connection-definition>
+            <jndi-name>vlj/lomalinda605</jndi-name>
+            <adapter-display-name>VistaLinkAdapter</adapter-display-name>
+        <config-property name="connectorJndiName" type="java.lang.String">vlj/lomalinda605</config-property>
+        <min-pool-size>5</min-pool-size>
+        <max-pool-size>100</max-pool-size>
+        <blocking-timeout-millis>5000</blocking-timeout-millis>
+        <idle-timeout-minutes>15</idle-timeout-minutes>
+    </no-tx-connection-factory>
+</connection-factories>

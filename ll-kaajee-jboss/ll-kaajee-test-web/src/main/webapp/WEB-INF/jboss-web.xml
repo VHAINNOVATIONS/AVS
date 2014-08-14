@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-web>
+
+  <security-domain>vistaRealm</security-domain>
+
+  <resource-ref>
+    <res-ref-name>jdbc/gov.va.med.term.access.Database</res-ref-name>
+    <jndi-name>java:/jdbc/gov.va.med.term.access.Database</jndi-name>
+  </resource-ref>
+
+</jboss-web>

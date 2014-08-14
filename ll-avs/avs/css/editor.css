@@ -1,0 +1,97 @@
+#editor-contents div.group {margin:25px 0}
+#editor-contents h2.group-title {
+	font-size:1.6em;
+	font-weight:bold;
+	margin:0;
+	padding:0 0 3px 0; /* or 0.5em? */
+}
+
+#editor-contents div.section {
+	overflow:hidden;
+	zoom:1;
+	border-top:1px solid #444;
+}
+#editor-contents h3.section-title {
+	float:left;
+	width:1.1in;
+	font-weight:bold;
+	font-size:1em;
+	margin:0;
+	padding:5px 0 5px 0.1in;
+}
+#editor-contents div.section-body {
+	margin-left:1.25in;
+	padding:5px 0 5px 10px;
+}
+#editor-contents div.section-body p {
+	margin:0;
+	padding:0;
+}
+#editor-contents div.section-body ul {
+	margin-top:0;
+	margin-bottom:0;
+	padding: 0 10px 0.5em 0;
+}
+#editor-contents div.section-body ul li {
+    list-style: disc;
+    padding: 0 10px 3px 0;
+}
+#editor-contents div.orders-category {
+	font-weight:bold;
+}
+#editor-contents div.orders-instructions {
+	font-style:italic;
+}
+#editor-contents div.orders-subitem {
+	text-decoration:underline;
+}
+#editor-contents div.orders-list ul li {
+	margin-left:0.5in;
+    list-style: disc;
+}
+#editor-contents ul.two-columns {
+    float: left;
+	width: 290px;
+}
+#editor-contents ul.two-columns li {
+    list-style: disc;
+}
+#editor-contents div.med-instructions {
+    padding-bottom: 5px;
+}
+#editor-contents div.med-name {
+	font-weight:bold;
+    padding-top: 5px;
+}
+#editor-contents div.med-detail {
+	padding-left: 30px;
+}
+#editor-contents div.appointment-date {
+	font-weight:bold;
+}
+#editor-contents div.appointment-detail {
+	padding-left: 30px;
+}
+#editor-contents div.service-name {
+	font-weight:bold;
+    padding-top: 5px;
+}
+#editor-contents div.service-detail {
+	padding-left: 30px;
+}
+#editor-contents div.chart {
+	padding-bottom: 20px;
+}
+#editor-contents strong {
+	font-weight: bold;
+}
+#editor-contents em {
+	font-style: italic;
+}
+#editor-contents pre.fixed-width {
+	font-family: Courier;
+    font-size: 8pt;
+}
+.normalFont {
+    font-size:10pt;
+}

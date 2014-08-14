@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.0" xmlns="http://java.sun.com/xml/ns/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd"> 
+  
+  <!-- 
+  ************************************************************************************
+        Preferences/Settings
+  ************************************************************************************
+   -->   
+	<named-query name="providerPrefs.find">
+		<query>
+			SELECT providerPrefs
+			FROM ProviderPrefs providerPrefs
+			WHERE providerPrefs.providerDuz = :providerDuz
+			AND providerPrefs.facilityNo = :facilityNo
+			AND providerPrefs.active = 1
+		</query>
+	</named-query>
+
+	<named-query name="clinicPrefs.find">
+		<query>
+			SELECT clinicPrefs
+			FROM ClinicPrefs clinicPrefs
+			WHERE clinicPrefs.clinicIen = :clinicIen
+			AND clinicPrefs.facilityNo = :facilityNo
+			AND clinicPrefs.active = 1
+		</query>
+	</named-query>
+
+	<named-query name="facilityPrefs.find">
+		<query>
+			SELECT facilityPrefs
+			FROM FacilityPrefs facilityPrefs
+			WHERE facilityPrefs.facilityNo = :facilityNo
+			AND facilityPrefs.active = 1
+		</query>
+	</named-query>
+	
+  <named-query name="userSettings.find">
+    <query>
+      SELECT userSettings
+      FROM UserSettings userSettings
+      WHERE userSettings.facilityNo = :facilityNo
+      AND userSettings.userDuz = :userDuz
+      AND userSettings.active = 1
+    </query>
+  </named-query>
+  
+  <!-- 
+  ************************************************************************************
+        String Resources
+  ************************************************************************************
+   -->   
+  <named-query name="strings.findByStation">
+    <query>
+      SELECT stringResource
+      FROM StringResource stringResource
+      WHERE stringResource.stationNo = :stationNo
+      OR stringResource.stationNo = null
+      AND stringResource.language.abbreviation = :language
+      AND stringResource.active = 1
+    </query>
+  </named-query>  
+  
+  <named-query name="strings.findByName">
+    <query>
+      SELECT stringResource
+      FROM StringResource stringResource
+      WHERE stringResource.stationNo = :stationNo
+      AND stringResource.name = :name
+      AND stringResource.language.abbreviation = :language
+      AND stringResource.active = 1
+    </query>
+  </named-query>  
+  
+  <!-- 
+  ************************************************************************************
+        Languages
+  ************************************************************************************
+   -->   
+  <named-query name="language.findByAbbr">
+    <query>
+      SELECT language
+      FROM Language language
+      WHERE language.abbreviation = :abbreviation
+      AND abbreviation.active = 1
+    </query>
+  </named-query>  
+
+  <!-- 
+  ************************************************************************************
+        Translations
+  ************************************************************************************
+   -->   
+	<named-query name="translations.find.bySource">
+		<query>
+			SELECT translation
+			FROM Translation translation
+			WHERE translation.facilityNo = :facilityNo
+			AND translation.source = :source
+			AND (translation.language.id IS NULL
+			OR translation.language.id = :languageId)
+			AND translation.active = 1
+		</query>
+	</named-query>
+
+	<named-query name="translations.find.byId">
+		<query>
+			SELECT translation
+			FROM Translation translation
+			WHERE translation.facilityNo = :facilityNo
+			AND translation.id = :id
+			AND translation.active = 1
+		</query>
+	</named-query>
+	
+	
+  <!-- 
+  ************************************************************************************
+        Services
+  ************************************************************************************
+   -->  
+  <named-query name="services.find.byName">
+    <query>
+      SELECT service
+      FROM Service service
+      WHERE service.facilityNo = :facilityNo
+      AND service.name = :name
+      AND service.active = 1
+    </query>
+  </named-query>
+
+  <named-query name="services.find.byId">
+    <query>
+      SELECT service
+      FROM Service service
+      WHERE service.facilityNo = :facilityNo
+      AND service.id = :id
+      AND service.active = 1
+    </query>
+  </named-query>
+  
+  
+  <!-- 
+  ************************************************************************************
+        Encounter Cache
+  ************************************************************************************
+   -->   
+  <named-query name="encounterCache.find">
+    <query>
+      SELECT encounterCache
+      FROM EncounterCache encounterCache
+      WHERE encounterCache.facilityNo = :facilityNo
+      AND encounterCache.patientDfn = :patientDfn
+      AND encounterCache.locationIen = :locationIen
+      AND encounterCache.encounterDatetime = :datetime
+      AND encounterCache.active = 1
+    </query>
+  </named-query>  
+  
+  <named-query name="encounterCache.findByDates">
+    <query>
+    <![CDATA[
+      SELECT encounterCache
+      FROM EncounterCache encounterCache
+      WHERE encounterCache.facilityNo LIKE :facilityNo
+      AND encounterCache.dateCreated >= :startDate
+      AND encounterCache.dateCreated <= :endDate
+      AND encounterCache.active = 1
+      ]]>
+    </query>
+  </named-query>  
+  
+  <!-- 
+  ************************************************************************************
+        Facility Health Factors
+  ************************************************************************************
+   -->   
+  <named-query name="healthfactors.find">
+    <query>
+      SELECT healthFactor
+      FROM FacilityHealthFactor healthFactor
+      WHERE healthFactor.stationNo = :stationNo
+      AND healthFactor.active = 1
+    </query>
+  </named-query>    
+  
+  <named-query name="healthfactors.findByType">
+    <query>
+      SELECT healthFactor
+      FROM FacilityHealthFactor healthFactor
+      WHERE healthFactor.stationNo = :stationNo
+      AND healthFactor.type = :type
+      AND healthFactor.active = 1
+    </query>
+  </named-query>   
+  <!-- 
+  ************************************************************************************
+        VHA Sites
+  ************************************************************************************
+   --> 
+  <named-query name="sites.findByStation">
+  <query>
+    <![CDATA[
+      from VhaSite site 
+      where site.stationNo=:stationNo
+    ]]>   
+  </query>   
+  </named-query>
+  
+  <named-query name="sites.findByStationAndProtocol">
+  <query>
+    <![CDATA[
+      from VhaSite site 
+      where site.stationNo=:stationNo
+      AND site.protocol=:protocol
+    ]]>   
+  </query>
+  </named-query>     
+  
+  <!-- 
+  ************************************************************************************
+        Pre-Visit Summary
+  ************************************************************************************
+   -->   
+  <named-query name="pvs.findClinicsByStationNo">
+    <query>
+      SELECT pvsClinic
+      FROM PvsClinic pvsClinic
+      WHERE pvsClinic.stationNo = :stationNo
+      AND pvsClinic.active = 1
+    </query>
+  </named-query>   
+  
+  <named-query name="pvs.findByDateClinic">
+    <query>
+      SELECT pvsPrintLog
+      FROM PvsPrintLog pvsPrintLog
+      WHERE pvsPrintLog.clinic.id = :clinicId
+      AND pvsPrintLog.dateCreated = :date
+      AND pvsPrintLog.active = 1
+    </query>
+  </named-query>
+  
+  <named-query name="pvs.findClinicalRemindersByStationNo">
+    <query>
+      SELECT pvsClinicalReminder
+      FROM PvsClinicalReminder pvsClinicalReminder
+      WHERE pvsClinicalReminder.stationNo = :stationNo
+      AND pvsClinicalReminder.active = 1
+    </query>
+  </named-query>   
+  
+</entity-mappings>

@@ -1,0 +1,54 @@
+{
+	"projectName": "Clinic Checkout Sheet Wizard UI",
+	"licenseText": "Copyright(c) 2012 LLVA",
+    "builds": [
+        {
+            "name": "Dynamic dependencies",
+            "description": "Files automatically pulled in by Ext.Loader, typically only prior to Ext.onReady()",
+            "target": ".tmp.ext-custom-debug.js",
+            "options": {
+                "debug": true
+            },
+            "files": []
+        },
+        {
+            "name": "Complete Application",
+            "description": "Dynamic dependencies plus anything else JSBuilder doesn't catch by itself.  Everything but the core ExtJS file.",
+            "target": "app-all-debug.js",
+            "options": {
+                "debug": true
+            },
+            "files": [
+                {
+                    "path": "/jsonutils/js/",
+                    "name": "ext-fmdate-debug.js"
+                },
+                {
+                    "path": "",
+                    "name": "app-debug.js"
+                },
+                {
+                    "path": "",
+                    "name": ".tmp.ext-custom-debug.js"
+                }
+                
+            ]
+        },
+        {
+            "name": "Complete Application, compressed",
+            "description": "Dynamic dependencies plus anything else JSBuilder doesn't catch by itself.  Everything but the core ExtJS file.",
+            "target": "app-all.js",
+            "compress": true,
+            "options": {
+                "debug": false
+            },
+            "files": [
+                {
+                    "path": "",
+                    "name": "app-all-debug.js"
+                }
+            ]
+        }
+    ],
+    "resources": []
+}

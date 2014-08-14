@@ -1,0 +1,27 @@
+body {
+    margin: 5;
+}
+
+#print {
+	display: none;
+}
+
+/* ui - whitespace around outer window */
+#ui {
+	margin: 5px;
+}
+
+.x-infofield {
+	padding-bottom: 3px;
+	font-weight: bold;
+	color: #003399;
+	font-size: 11px
+}
+
+.x-statusfield {
+	padding-bottom: 3px;
+	font-weight: normal;
+    font-style: italic;
+	color: #003399;
+	font-size: 11px
+}

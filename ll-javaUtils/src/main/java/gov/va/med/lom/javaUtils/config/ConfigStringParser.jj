@@ -1,0 +1,277 @@
+options
+{
+    STATIC = false;
+}
+
+PARSER_BEGIN(ConfigStringParser)
+
+package gov.va.med.lom.javaUtils.config;
+
+import java.io.*;
+import java.util.*;
+
+public class ConfigStringParser
+{
+    public static void main(String args[]) throws ParseException, IOException
+    {
+	BufferedReader in =
+		new BufferedReader(new InputStreamReader(System.in));
+	String instr = in.readLine();
+	String[] values = ConfigStringParser.parseStringArray(instr);
+	System.out.println(values.length + " elements");
+	for (int i = 0; i < values.length; i++) {
+	    System.out.println(values[i]);
+	}
+    }
+
+    public static String[] parseStringArray(String valuestr)
+            throws ParseException
+    {
+	String[] values = null;
+	byte[] bb = valuestr.getBytes();
+	ByteArrayInputStream inputStream = new ByteArrayInputStream(bb);
+	ConfigStringParser parser = new ConfigStringParser(inputStream);
+	try {
+	    try {
+		values = parser.ParseConfigString();
+	    } catch (TokenMgrError e) {
+		throw parser.generateParseException();
+	    }
+	} catch (ParseException e) {
+	    System.err.println("Syntax error in config file at line " + 
+		e.currentToken.next.beginLine +
+		", column " + e.currentToken.next.beginColumn + ".");
+	    throw e;
+	}
+	return values;
+    }
+
+    private static final boolean isodigit(char c) {
+	switch (c) {
+	    case '0': case '1': case '2': case '3':
+	    case '4': case '5': case '6': case '7':
+		return true;
+	}
+	return false;
+    }
+
+    private static final boolean isxdigit(char c) {
+	switch (c) {
+	    case '0': case '1': case '2': case '3':
+	    case '4': case '5': case '6': case '7':
+	    case '8': case '9':
+	    case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
+	    case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
+		return true;
+	}
+	return false;
+    }
+}
+
+PARSER_END(ConfigStringParser)
+
+// PARSER SPECIFICATIONS BEGIN HERE
+
+String[] ParseConfigString() :
+{
+    Vector vv;
+    String[] values;
+}
+{
+    vv=ValueList()
+    {
+	values = new String[vv.size()];
+	vv.copyInto(values);
+	return values;
+    }
+}
+
+Vector ValueList() :
+{
+    String sval = null;
+    Vector vlist = null;
+}
+{
+    ( ( sval=Value() )
+      [ <COMMA> [ <WHITESPACE> ] 
+      ( vlist=ValueList() ) ]   )	
+    {
+	if (vlist == null) {
+	    vlist = new Vector();
+	    vlist.addElement(sval);
+	} else {
+	    vlist.insertElementAt(sval, 0);
+	}
+	return vlist;
+    }
+}
+
+String Value() :
+{
+    String lhs="", rhs="";
+}
+{
+    ( ( lhs=ValueFragment() )
+      [ <PLUS> [ <WHITESPACE> ] 
+      ( rhs=Value() ) ]
+    )
+    {
+	return lhs + rhs;
+    }
+}
+
+String ValueFragment() :
+{
+    Token val;
+    String sval;
+}
+{
+    ( ( sval=QuotedString() ) [ <WHITESPACE> ] )
+    {
+	return sval;
+    }
+|   ( ( val=<STRING> ) [ <WHITESPACE> ] )
+    {
+	return val.image;
+    }
+}
+
+String QuotedString() :
+{
+    Token qs;
+    StringBuffer sbuf;
+    int i;
+    char[] cbuf;
+}
+{
+    (qs=<QSTRING>)
+    {
+	sbuf = new StringBuffer();
+	cbuf = qs.image.toCharArray();
+	for (i=1; i < (cbuf.length - 1); i++) {
+	    switch (cbuf[i]) {
+		case '\\':
+		    switch (cbuf[i+1]) {
+			case 'n':
+			    sbuf.append("\n"); i += 1; break;
+			case 't':
+			    sbuf.append("\t"); i += 1; break;
+			case 'b':
+			    sbuf.append("\b"); i += 1; break;
+			case 'r':
+			    sbuf.append("\r"); i += 1; break;
+			case 'f':
+			    sbuf.append("\f"); i += 1; break;
+			case 'u':
+			    if ((cbuf.length - i >= 6) &&
+				(isxdigit(cbuf[i+2])) &&
+				(isxdigit(cbuf[i+3])) &&
+				(isxdigit(cbuf[i+4])) &&
+				(isxdigit(cbuf[i+5]))) {
+				try {
+				    String s = new String(cbuf, i+2, 4);
+				    int val = Integer.parseInt(s, 16);
+				    sbuf.append((char)val);
+				    i += 5;
+				} catch (Throwable t) {
+				    sbuf.append(cbuf[i+1]);
+				    i += 1;
+				}
+			    } else {
+				sbuf.append(cbuf[i+1]);
+				i += 1;
+			    }
+			    break;
+			case 'x':
+			    if ((cbuf.length - i >= 4) &&
+				(isxdigit(cbuf[i+2])) &&
+				(isxdigit(cbuf[i+3]))) {
+				try {
+				    String s = new String(cbuf, i+2, 2);
+				    int val = Integer.parseInt(s, 16);
+				    sbuf.append((char)val);
+				    i += 3;
+				} catch (Throwable t) {
+				    sbuf.append(cbuf[i+1]);
+				    i += 1;
+				}
+			    } else {
+				sbuf.append(cbuf[i+1]);
+				i += 1;
+			    }
+			    break;
+			default:
+			    if ((cbuf.length - i >= 4) &&
+				(isodigit(cbuf[i+1])) &&
+				(isodigit(cbuf[i+2])) &&
+				(isodigit(cbuf[i+3]))) {
+				try {
+				    String s = new String(cbuf, i+1, 3);
+				    int val = Integer.parseInt(s, 8);
+				    sbuf.append((char)val);
+				    i += 3;
+				} catch (Throwable t) {
+				    sbuf.append(cbuf[i+1]);
+				    i += 1;
+				}
+			    } else {
+				sbuf.append(cbuf[i+1]);
+				i += 1;
+			    }
+			    break;
+		    } // inner switch
+		    break;
+		default:
+		    sbuf.append(cbuf[i]);
+		    break;
+	    } // outer switch
+	} // outer for
+	return sbuf.toString();
+    } // production: qs=<QSTRING>
+}
+
+// LEXICAL SPECIFICATIONS BEGIN HERE
+
+TOKEN:
+{
+    <WHITESPACE: (<WS_CHAR>(<WS_CHAR>)*)>
+|
+    //
+    // Whitespace characters. 
+    // The usual space and tab, or any nonprintables except CR and LF.
+    //
+    <#WS_CHAR: ["\u0000"-"\u0009","\u000b"-"\u000c","\u000e"-"\u0020","\u007f"]>
+}
+
+TOKEN:
+{
+    // 
+    // We allow multi-line quoted strings, but newlines _must_ be back-
+    // quoted to reduce the confusing effect of missing a closing quote.
+    //
+    <QSTRING: "\"" (<QCHAR> | <PLUS> | <COMMA>)* "\"">
+|
+    <STRING: (["!","#"-"*","-"-"~"])+ >
+|
+    <#QCHAR: ( 	  (~["\n","\r","\\","\"",",","+"])
+		| "\\\n" | "\\\r" | "\\\r\n"
+		| ( "\\" ( ["0"-"3"] ["0"-"7"] ["0"-"7"] ) )
+		| ( "\\x" ( 
+			["0"-"9","A"-"F","a"-"f"]
+			["0"-"9","A"-"F","a"-"f"]
+		  ) )
+		| ( "\\u" ( 
+			["0"-"9","A"-"F","a"-"f"]
+			["0"-"9","A"-"F","a"-"f"]
+			["0"-"9","A"-"F","a"-"f"]
+			["0"-"9","A"-"F","a"-"f"]
+		  ) )
+		| ("\\" ( ~[] ) )
+	    )
+    >
+|
+    <PLUS: ("+")(<WHITESPACE>)?("\n"|"\r"|"\r\n")?>
+|
+    <COMMA: (",")(<WHITESPACE>)?("\n"|"\r"|"\r\n")?>
+}
+

@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <title>After Visit Summary Settings Launcher</title>
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="/ext/4.1.1a/resources/css/ext-all.css" />
+    <link rel="stylesheet" type="text/css" href="css/app.css" />
+    <script type="text/javascript" src="/ext/4.1.1a/ext-all.js"></script>
+    <script type="text/javascript" src="/loginutils/js/session-debug.js"></script>
+    <script type="text/javascript">
+        var stationNo, userDuz;
+
+        function serializeProperties(config) {
+            var name = null,
+                joinedParams = [];
+            for (name in config) {
+                if (config.hasOwnProperty(name)) {
+                    var value = config[name];
+                    joinedParams.push(name + '=' + value);
+                }
+            }
+            return joinedParams.join(',');
+        }
+
+        var openAvsAdmin = function() {
+            var url = 'index.html?stationNo=' + stationNo + '&userDuz=' + userDuz;
+            window.location = url;
+        }
+
+        Ext.onReady(function() {
+            var params =  window.location.search.substring(1).split("&");
+            for (var i = 0; i < params.length; i++) {
+                var s = params[i].split("=");
+                if (s[0] == 'stationNo') {
+                    stationNo = s[1];
+                } else if (s[0] == 'userDuz') {
+                    userDuz = s[1];
+                }
+            }
+
+            if ((stationNo != null) && (userDuz != null)) {
+                var sessionOptions = {
+                    userInfo: '/avs/w/s/user/userInfo.action',
+                    facilities: '/avs/w/login/stations.action',
+                    login: '/avs/w/login/LoginController',
+                    logout: '/avs/w/login/logout.action'
+                };
+                new LLVA.Session(openAvsAdmin, sessionOptions);
+            } else {
+                window.location = 'index.html';
+            }
+        });
+    </script>
+  </head>
+  <body topmargin="0" leftmargin="0">
+      <div style="font-size:14px;padding:15px;">Please wait while the application is loaded.</div>
+  </body>
+</html>
+                

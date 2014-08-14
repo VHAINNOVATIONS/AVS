@@ -1,0 +1,42 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+  http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>gov.va.med.lom.loginUtils</groupId>
+  <artifactId>ll-loginUtils-war</artifactId>
+  <packaging>war</packaging>
+  <version>1.0</version>
+  <name>LLVAMC Login Utils Library</name>
+
+  <dependencies>  
+    <dependency>
+      <groupId>gov.va.med.lom.loginUtils</groupId>
+      <artifactId>ll-loginUtils-jar</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+  </dependencies>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifestEntries>
+              <Extension-Name>ll-loginUtils-library</Extension-Name>
+              <Specification-Version>${project.version}</Specification-Version>
+              <Implementation-Version>${project.version}</Implementation-Version>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+
+
+
+

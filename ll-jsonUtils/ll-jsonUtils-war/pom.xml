@@ -1,0 +1,50 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+  http://maven.apache.org/maven-v4_0_0.xsd">
+
+
+  <parent>
+    <groupId>gov.va.med.lom.jsonUtils</groupId>
+    <artifactId>ll-jsonUtils-parent</artifactId>
+    <version>1.3</version>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>gov.va.med.lom.jsonUtils</groupId>
+  <artifactId>ll-jsonUtils-war</artifactId>
+  <packaging>war</packaging>
+  <version>1.3</version>
+  <name>LLVAMC JSON Utils Library</name>
+  <url>http://vaww.lom.med.va.gov</url>
+
+  <dependencies>  
+    <dependency>
+      <groupId>gov.va.med.lom.jsonUtils</groupId>
+      <artifactId>ll-jsonUtils-jar</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+  </dependencies>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifestEntries>
+              <Extension-Name>ll-jsonUtils-library</Extension-Name>
+              <Specification-Version>${project.version}</Specification-Version>
+              <Implementation-Version>${project.version}</Implementation-Version>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+
+
+
+

@@ -1,0 +1,49 @@
+/* These styles are only necessary for the header bar used in this example, 
+    and are not part of LLVA.Session. */
+
+#header {
+    background: #7F99BE url(hd-bg.gif) repeat-x center;
+    font-family: Tahoma,Verdana,Helvetica,sans-serif;
+}
+#header .title {
+    font-size: 16px;
+    color: #fff;
+    font-weight: bold;
+    padding: 5px 10px;
+    text-align: left;
+}
+#header .user {
+    font-size: 14px;
+    color: #fff;
+    font-weight: normal;
+    float:right;
+    padding: 5px 10px;
+    display: none;
+}    
+.user a, a:link {
+    text-decoration: none;
+    color: #FCB100;
+}
+.user a:visited {
+    color: #FCB100;
+}
+.user a:hover {
+    text-decoration: underline;
+}
+.user a:active {
+    color: #FCB100;
+    text-decoration: underline;
+}
+
+#content {
+	margin: 20px;
+}
+	
+p.js-link {
+	margin: 10px;
+}
+p.js-link a {
+	color: darkblue;
+	font-weight: bold;
+	text-decoration: underline;
+}

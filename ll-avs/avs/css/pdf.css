@@ -1,0 +1,26 @@
+/**
+ * pdf.css
+ */
+
+@page {
+    size: 8.5in 11in;
+    margin: 0.2in;
+    font-family: Tahoma, Arial, Verdana, sans-serif;
+    @bottom-right { 
+        content: "Page " counter(page) " of " counter(pages); 
+        padding-right: 15px;
+    }
+}
+
+@page {
+    font-family: Tahoma, Arial, Verdana, sans-serif;
+    @bottom-left { 
+        content: element(footer) 
+    }    
+}
+
+div.footer {
+    display: block; 
+    text-align: left;
+    position: running(footer);
+}

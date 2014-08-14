@@ -1,0 +1,151 @@
+<web-app version="2.5"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+         
+  <display-name>After Visit Summary App</display-name>
+  <description>Web-based interface for After Visit Summary App</description>
+  
+  <welcome-file-list>
+    <welcome-file>login/index.html</welcome-file>
+  </welcome-file-list>
+  
+  <servlet>
+    <display-name>FCExporter</display-name>
+    <servlet-name>FCExporter</servlet-name>
+    <servlet-class>com.fusioncharts.exporter.servlet.FCExporter</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>FCExporter</servlet-name>
+    <url-pattern>/w/s/FCExporter</url-pattern>
+  </servlet-mapping>    
+  
+  <filter>
+    <filter-name>struts-cleanup</filter-name>
+    <filter-class>org.apache.struts2.dispatcher.ActionContextCleanUp</filter-class>
+  </filter>  
+  
+  <filter>
+    <filter-name>struts</filter-name>
+    <filter-class>org.apache.struts2.dispatcher.FilterDispatcher</filter-class>
+    <init-param>
+      <param-name>actionPackages</param-name>
+      <param-value>gov.va.med.lom.login.struts.action,gov.va.med.lom.avs.com.action</param-value>
+    </init-param>
+  </filter>
+  
+  <filter-mapping>
+    <filter-name>struts-cleanup</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <filter-mapping>
+    <filter-name>struts</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>  
+   
+  <servlet>
+    <servlet-name>AvsWebInit</servlet-name>
+    <servlet-class>gov.va.med.lom.avs.servlet.AvsWebInit</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>    
+    
+  <servlet>
+    <servlet-name>KaajeeInit</servlet-name>
+    <servlet-class>gov.va.med.lom.kaajee.jboss.security.auth.InitKaajeeServlet</servlet-class>
+    <init-param>
+      <param-name>kaajee-config-file-location</param-name>
+      <param-value>/WEB-INF/kaajeeConfig.xml</param-value>
+    </init-param>
+    <load-on-startup>3</load-on-startup>
+  </servlet>  
+  
+  <servlet>
+    <servlet-name>LoginController</servlet-name>
+    <servlet-class>gov.va.med.lom.kaajee.jboss.security.auth.LoginControllerAjax</servlet-class>
+    <run-as>
+      <role-name>adminuserrole</role-name>
+    </run-as>
+  </servlet>
+      
+  <servlet-mapping>
+    <servlet-name>LoginController</servlet-name>
+    <url-pattern>/w/login/LoginController</url-pattern>
+  </servlet-mapping>
+  
+  <session-config>
+    <session-timeout>60</session-timeout>
+  </session-config>
+  
+  <error-page>
+    <error-code>403</error-code>
+    <location>/login/loginerror403.jsp</location>
+  </error-page>
+
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Login Page</web-resource-name>
+      <url-pattern>/w/login/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>POST</http-method>
+      <http-method>OPTIONS</http-method>
+    </web-resource-collection>
+    <user-data-constraint>
+      <transport-guarantee>NONE</transport-guarantee>
+    </user-data-constraint>
+  </security-constraint>
+
+   <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Protected Pages</web-resource-name>
+      <url-pattern>/w/s/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>POST</http-method>
+      <http-method>OPTIONS</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>AUTHENTICATED_KAAJEE_USER</role-name>
+    </auth-constraint>
+    <user-data-constraint>
+      <!--  Use a value of 'CONFIDENTIAL' to place this page in SSL. -->
+      <transport-guarantee>NONE</transport-guarantee>
+    </user-data-constraint>
+  </security-constraint>
+
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Protected Pages</web-resource-name>
+      <url-pattern>/index.html</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>POST</http-method>
+      <http-method>OPTIONS</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>AUTHENTICATED_KAAJEE_USER</role-name>
+    </auth-constraint>
+    <user-data-constraint>
+      <!--  Use a value of 'CONFIDENTIAL' to place this page in SSL. -->
+      <transport-guarantee>NONE</transport-guarantee>
+    </user-data-constraint>
+  </security-constraint>
+
+  <login-config>
+    <auth-method>FORM</auth-method>
+    <form-login-config>
+      <form-login-page>/w/loginerror.jsp</form-login-page>
+      <form-error-page>/w/loginerror.jsp</form-error-page>
+    </form-login-config>
+  </login-config> 
+ 
+  <security-role>
+     <description>auto-assigned authenticated user role</description>
+     <role-name>AUTHENTICATED_KAAJEE_USER</role-name>
+  </security-role>
+  
+  <security-role>
+     <role-name>adminuserrole</role-name>
+  </security-role>  
+      
+</web-app>

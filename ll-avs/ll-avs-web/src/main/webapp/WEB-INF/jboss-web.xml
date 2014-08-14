@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-web>
+
+  <security-domain>java:/jaas/vistaRealm</security-domain>      
+
+  <security-role>
+    <role-name>AUTHENTICATED_KAAJEE_USER</role-name>
+    <principal-name>AUTHENTICATED_KAAJEE_USER</principal-name>
+  </security-role>
+  
+</jboss-web>

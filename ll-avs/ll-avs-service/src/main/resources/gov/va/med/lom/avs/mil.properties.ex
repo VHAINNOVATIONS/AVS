@@ -1,0 +1,9 @@
+mil.dbserver=
+mil.dbport=
+mil.dbname=
+mil.domain=
+mil.username=
+mil.password=
+mil.drivertype=
+mil.database=
+mil.driver=

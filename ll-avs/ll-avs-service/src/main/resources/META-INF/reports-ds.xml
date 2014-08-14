@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources>
+  <local-tx-datasource>
+    <jndi-name>jdbc/clinical</jndi-name> 
+    <connection-url>jdbc:jtds:sqlserver://localhost:1433;DatabaseName=Clinical</connection-url>
+    <driver-class>net.sourceforge.jtds.jdbcx.JtdsDataSource</driver-class>
+    <user-name>foo</user-name>
+    <password>bar</password>
+    <transaction-isolation>TRANSACTION_READ_COMMITTED</transaction-isolation>
+    <new-connection-sql>SELECT 1</new-connection-sql>
+    <check-valid-connection-sql>SELECT 1</check-valid-connection-sql>
+    <min-pool-size>5</min-pool-size>
+    <max-pool-size>10</max-pool-size>
+    <idle-timeout-minutes>0</idle-timeout-minutes>
+    <prepared-statement-cache-size>32</prepared-statement-cache-size>
+    <metadata>
+      <type-mapping>MS SQLSERVER2000</type-mapping>
+    </metadata>
+  </local-tx-datasource>
+</datasources>

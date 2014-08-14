@@ -1,0 +1,20 @@
+/**
+ * Sheet sheet.css
+ */
+
+/*** Header and Footer ***/
+
+#sheet-wrapper {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+#sheet {
+	border-top: none;
+	border-bottom: none;
+}
+#sheet-contents {
+	margin-top:0px;
+	margin-bottom:0px;
+	padding-top:20px;
+	padding-bottom:20px;
+}

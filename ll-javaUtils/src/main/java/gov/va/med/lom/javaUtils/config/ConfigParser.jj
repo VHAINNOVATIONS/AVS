@@ -1,0 +1,410 @@
+options {
+    STATIC	= false;
+}
+
+PARSER_BEGIN(ConfigParser)
+
+package gov.va.med.lom.javaUtils.config;
+import java.io.*;
+import java.util.*;
+
+public class ConfigParser {
+
+    private String comments="";
+    private ConfigFile configFile = null;
+
+    public static void main(String args[])
+    throws ParseException, ConfigException
+    {
+	ConfigParser parser = new ConfigParser(System.in);
+	ConfigFile cf = new ConfigFile();
+	parser.process(cf);
+	cf.write(System.out);
+    }
+
+    public void process(ConfigFile configFile)
+    throws ParseException, ConfigException
+    {
+	this.configFile = configFile;
+	try {
+	    try {
+		ParseConfigFile();
+	    } catch (TokenMgrError e) {
+		throw generateParseException();
+	    }
+	} catch (ParseException e) {
+	    System.err.println("Syntax error in config file at line " + 
+		e.currentToken.next.beginLine +
+		", column " + e.currentToken.next.beginColumn + ".");
+	    throw e;
+	}
+    }
+
+    private static final boolean isodigit(char c) {
+	switch (c) {
+	    case '0': case '1': case '2': case '3':
+	    case '4': case '5': case '6': case '7':
+		return true;
+	}
+	return false;
+    }
+
+    private static final boolean isxdigit(char c) {
+	switch (c) {
+	    case '0': case '1': case '2': case '3':
+	    case '4': case '5': case '6': case '7':
+	    case '8': case '9':
+	    case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
+	    case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
+		return true;
+	}
+	return false;
+    }
+}
+
+class ConfigElement {
+    /**
+     * Comments for this element.
+     */
+    public	String		comments;
+
+
+    /**
+     * Key name for this key.
+     */
+    public	String		key;
+
+    /**
+     * Array of zero or more values assigned to key.
+     */
+    public	String[]	values;
+}
+
+PARSER_END(ConfigParser)
+
+// PARSER SPECIFICATIONS BEGIN HERE
+
+void ParseConfigFile() throws ConfigException :
+	{
+	    boolean done;
+	}
+{
+    (
+	done=ConfigEntry()
+	    {
+		if (done) return;
+	    }
+    )*
+}
+
+boolean ConfigEntry() throws ConfigException :
+	{
+	    Token comment, kw, val, ws;
+	    String keyword=null;
+	    Vector vlist=null;
+	    boolean isArray=false;
+	}
+{
+    [ comment=<WHITESPACE>
+	    {
+		comments += comment.toString();
+	    }
+    ]
+    (
+	(comment=<EOL>) 
+	    {
+		comments += comment.toString();
+	    }
+      |
+	(comment=<COMMENT>)
+	    {
+		comments += comment.toString();
+	    }
+      |
+	kw=<KEYWORD> [ <WHITESPACE> ] [ isArray=arraySpec() [ <WHITESPACE> ] ]
+	    <ASSIGN> [ <WHITESPACE> ] [ vlist=ValueList() ] <EOL> 
+	    {
+		if (vlist == null) {
+		    try {
+			if (isArray) {
+			    configFile.addEntry(kw.image, 
+				new String[0], comments);
+			} else {
+			    configFile.addEntry(kw.image, "", comments);
+			}
+		    } catch (KeywordValueException e) {
+			throw new ConfigException(
+			    "Key " + kw.image + " is not valid.");
+		    }
+		} else {
+		    Enumeration en = vlist.elements();
+		    String[] values = new String[vlist.size()];
+		    int pos = values.length - 1;
+		    while (en.hasMoreElements()) {
+			values[pos--] = (String) en.nextElement();
+		    }
+		    try {
+			if (isArray) {
+			    configFile.addEntry(kw.image, values, comments);
+			} else {
+			    if (values.length != 1) {
+				throw new ConfigException(
+				    "Key " + kw.image + 
+				    " is not a list.  Use " +
+				    kw.image +"[]");
+			    }
+			    configFile.addEntry(kw.image, values[0], comments);
+			}
+		    } catch (KeywordValueException e) {
+			throw new ConfigException(
+			    "Key " + kw.image + " is not valid.");
+		    }
+		}
+		comments = "";
+	    }
+	|
+	  <EOF>
+	    {
+		try {
+		    // FIX - should really be addTrailingComment
+		    configFile.addEntry(ConfigFile.TRAILING_COMMENT,
+			    (String[])null, comments);
+		} catch (KeywordValueException e) {
+		    System.err.println("ConfigFile unable to add entry for "
+			    + ConfigFile.TRAILING_COMMENT + ".");
+		}
+		comments = "";
+		return true; // EOF reached - finished parsing.
+	    }
+    )
+    {
+	return false; // Not done until EOF.
+    }
+}
+
+Vector ValueList() :
+	{
+	    String	sval=null;
+	    Vector	vlist=null;
+	}
+{
+    ( ( sval=Value() )
+      [ <COMMA> [ <WHITESPACE> ] 
+      ( vlist=ValueList() ) ]   )	
+    {
+	if (vlist == null) {
+	    vlist = new Vector();
+	    vlist.addElement(sval);
+	} else {
+	    vlist.addElement(sval);
+	}
+	return vlist;
+    }
+}
+
+String Value() :
+	{
+	    String lhs="", rhs="";
+	}
+{
+    ( ( lhs=ValueFragment() )
+      [ <PLUS> [ <WHITESPACE> ] 
+      ( rhs=Value() ) ]   )
+	{
+	    return lhs + rhs;
+	}
+}
+
+String ValueFragment() :
+	{
+	    Token val;
+	    String sval;
+	}
+{
+    ( ( sval=QuotedString() ) [ <WHITESPACE> ] )
+	{
+	    return sval;
+	}
+  |
+    ( ( val=<STRING> ) [ <WHITESPACE> ] )
+	{
+	    return val.image;
+	}
+}
+
+boolean arraySpec() :
+	{
+	    String lhs="", rhs="";
+	}
+{
+    ( "[" [ <WHITESPACE> ] "]" )
+	{
+    	    return true;
+       	}
+}
+
+String QuotedString() :
+	{
+	    Token qs;
+	    StringBuffer sbuf;
+	    int i;
+	    char[] cbuf;
+	}
+{
+    (qs=<QSTRING>)
+    {
+	sbuf = new StringBuffer();
+	cbuf = qs.image.toCharArray();
+	for (i=1; i < (cbuf.length - 1); i++) {
+	    switch (cbuf[i]) {
+		case '\\':
+		    switch (cbuf[i+1]) {
+			case 'n':
+			    sbuf.append("\n"); i += 1; break;
+			case 't':
+			    sbuf.append("\t"); i += 1; break;
+			case 'b':
+			    sbuf.append("\b"); i += 1; break;
+			case 'r':
+			    sbuf.append("\r"); i += 1; break;
+			case 'f':
+			    sbuf.append("\f"); i += 1; break;
+			case 'u':
+			    if ((cbuf.length - i >= 6) &&
+				(isxdigit(cbuf[i+2])) &&
+				(isxdigit(cbuf[i+3])) &&
+				(isxdigit(cbuf[i+4])) &&
+				(isxdigit(cbuf[i+5]))) {
+				try {
+				    String s = new String(cbuf, i+2, 4);
+				    int val = Integer.parseInt(s, 16);
+				    sbuf.append((char)val);
+				    i += 5;
+				} catch (Throwable t) {
+				    sbuf.append(cbuf[i+1]);
+				    i += 1;
+				}
+			    } else {
+				sbuf.append(cbuf[i+1]);
+				i += 1;
+			    }
+			    break;
+			case 'x':
+			    if ((cbuf.length - i >= 4) &&
+				(isxdigit(cbuf[i+2])) &&
+				(isxdigit(cbuf[i+3]))) {
+				try {
+				    String s = new String(cbuf, i+2, 2);
+				    int val = Integer.parseInt(s, 16);
+				    sbuf.append((char)val);
+				    i += 3;
+				} catch (Throwable t) {
+				    sbuf.append(cbuf[i+1]);
+				    i += 1;
+				}
+			    } else {
+				sbuf.append(cbuf[i+1]);
+				i += 1;
+			    }
+			    break;
+			default:
+			    if ((cbuf.length - i >= 4) &&
+				(isodigit(cbuf[i+1])) &&
+				(isodigit(cbuf[i+2])) &&
+				(isodigit(cbuf[i+3]))) {
+				try {
+				    String s = new String(cbuf, i+1, 3);
+				    int val = Integer.parseInt(s, 8);
+				    sbuf.append((char)val);
+				    i += 3;
+				} catch (Throwable t) {
+				    sbuf.append(cbuf[i+1]);
+				    i += 1;
+				}
+			    } else {
+				sbuf.append(cbuf[i+1]);
+				i += 1;
+			    }
+			    break;
+		    } // inner switch
+		    break;
+		default:
+		    sbuf.append(cbuf[i]);
+		    break;
+	    } // outer switch
+	} // outer for
+	return sbuf.toString();
+    } // production: qs=<QSTRING>
+}
+
+// LEXICAL SPECIFICATIONS BEGIN HERE
+
+//
+// Default state is "left hand side of expression".
+//
+<DEFAULT>
+TOKEN:
+{
+    <KEYWORD: (<KW_CHAR>)+>
+}
+
+<DEFAULT,RHS>
+TOKEN:
+{
+    <WHITESPACE: (<WS_CHAR>(<WS_CHAR>)*)>
+|
+    <COMMENT: "#" (~["\n","\r"])* <EOL>>
+|
+    //
+    // Whitespace characters. 
+    // The usual space and tab, or any nonprintables except CR and LF.
+    //
+    <#WS_CHAR: ["\u0000"-"\u0009","\u000b"-"\u000c","\u000e"-"\u0020","\u007f"]>
+|
+    //
+    // The different possible incarnations of newline, thanks to 
+    // our friends at Apple and Micro$oft.
+    //
+    <EOL: "\n" | "\r" | "\r\n"> : DEFAULT
+}
+
+<RHS>
+TOKEN:
+{
+    // 
+    // We allow multi-line quoted strings, but newlines _must_ be back-
+    // quoted to reduce the confusing effect of missing a closing quote.
+    //
+    <QSTRING: "\"" (<QCHAR> | <PLUS> | <COMMA>)* "\"">
+|
+    <STRING: (["!","#"-"*","-"-"~"])+ >
+|
+    <#QCHAR: ( 	  (~["\n","\r","\\","\"",",","+"])
+		| "\\\n" | "\\\r" | "\\\r\n"
+		| ( "\\" ( ["0"-"3"] ["0"-"7"] ["0"-"7"] ) )
+		| ( "\\x" ( 
+			["0"-"9","A"-"F","a"-"f"]
+			["0"-"9","A"-"F","a"-"f"]
+		  ) )
+		| ( "\\u" ( 
+			["0"-"9","A"-"F","a"-"f"]
+			["0"-"9","A"-"F","a"-"f"]
+			["0"-"9","A"-"F","a"-"f"]
+			["0"-"9","A"-"F","a"-"f"]
+		  ) )
+		| ("\\" ( ~[] ) )
+	    )
+    >
+|
+    <PLUS: ("+")(<WHITESPACE>)?("\n"|"\r"|"\r\n")?>
+|
+    <COMMA: (",")(<WHITESPACE>)?("\n"|"\r"|"\r\n")?>
+}
+
+<DEFAULT>
+TOKEN:
+{
+    <#KW_CHAR: ~["\u0000"-"\u0020","\u007f","=","#","[","]"]>
+|
+    <ASSIGN: ["="]> : RHS
+}

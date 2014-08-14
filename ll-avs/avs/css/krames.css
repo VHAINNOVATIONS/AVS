@@ -1,0 +1,118 @@
+body { font-family: verdana, arial, helvetica; margin: 15px 15px; }
+table, div.box, { margin: 5px 0; }
+.box td, div.box { font-family: arial, verdana, helvetica, sans-serif; background-color: #deeef9; border: #9fceed 1px solid; margin: 0px 5px; padding: 8px; }
+.box p { font-family: arial, helvetica, sans-serif; font-size: 10pt; }
+img { border: 1px solid #000000; }
+.caption { color: #000000; font-family: verdana, arial, helvetica, sans-serif; font-size: 13px; font-size-adjust: none; font-stretch: normal; font-style: normal; font-variant: normal; font-weight: bold; line-height: normal; }
+.CopyRight { clear: both; font-size: 10px; font-family: verdana, arial, verdana, helvetica, sans-serif; color: #6e7b80; margin: 5px 0; }
+.sources { font-size: 12pt; font-family: "times new roman", georgia, serif;}
+@media print {
+	.pagebreak { page-break-before: always; }
+	.logo { display: block; }
+}
+@media screen {
+	.pagebreak { }
+	.logo { display: none; }
+}
+.logo { border: 0px; margin: 0 0 1em 0; }
+:focus { outline-offset: -1px; } /* fix the focus rectangle in Firefox */
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* HealthSheet classes */
+.HSBody { font-family: "times new roman", georgia, serif; font-size: 12pt; color: #000000; background-color: #ffffff; }
+
+.ChartHead { font-weight: bold; font-size: 13pt; }
+.ChartSub { font-weight: bold; font-size: 12pt; color: #333333; background-color: #c6c6b5; }
+.ChartColor1 { font-size: 12pt; color: #000000; background-color: #e7e4e2; }
+.ChartColor2 { font-size: 12pt; color: #000000; background-color: #f4f1ef; }
+
+.head0 { color: #333333; font-size: 12pt; font-weight: bold; }
+.head1 { color: #333333; font-size: 12pt; font-weight: bold; }
+.cell0 { color: #000000; font-size: 12pt; }
+.cell1 { color: #000000; font-size: 12pt; }
+.cell2 { color: #000000; font-size: 12pt; }
+.cellgrid { color: #000000; font-size: 12pt; }
+
+ol.number { list-style-type: decimal; }
+ol.letter { list-style-type: upper-alpha; }
+ol.roman { list-style-type: upper-roman; }
+
+big { font-family: "times new roman", georgia, serif; font-size: 12pt; }
+p { font-family: "times new roman", georgia, serif; font-size: 12pt; margin: 0px; margin-bottom: 10px; }
+p.left { font-family: "times new roman", georgia, serif; font-size: 12pt; text-align: left; }
+p.right { font-family: "times new roman", georgia, serif; font-size: 12pt; text-align: right; }
+p.center { font-family: "times new roman", georgia, serif; font-size: 12pt; text-align: center; }
+p.justify { font-family: "times new roman", georgia, serif; font-size: 12pt; text-align: justify; }
+
+li p { margin: 0px; margin-bottom: 2px; }
+
+h1, .DrugPageTitle { color: #ff9900; font-family: tahoma, arial, helvetica; font-size: 20px; font-weight: bold; margin: 0px; margin-bottom: 10px; }
+h2, .DrugDocTitle { color: #0066cc; font-family: arial, verdana, helvetica, sans-serif; font-size: 17px; font-weight: bold; margin-bottom: 8px; margin-top: 0px; }
+h3 { color: #003399; font-family: arial, verdana, helvetica, sans-serif; font-size: 16px; font-weight: bold; margin-bottom: 8px; margin-top: 0px; }
+h3 table { font-size: 13px; color: #000; }
+h4, h5, h6 { font-family: arial, verdana, helvetica, sans-serif; font-size: 15px; font-weight: bold; margin-bottom: 0px; margin-top: 8px; }
+h5 { font-style: italic; }
+h6 { color: #666; font-style: italic; }
+h7, h8 { font-family: arial, verdana, helvetica, sans-serif; font-size: 13px; font-weight: bold; margin-bottom: 0px; margin-top: 5px; }
+h8 { font-style: italic; }
+
+.h2 {
+	margin:0in; FONT-WEIGHT: bold; FONT-SIZE: 17px; COLOR: #0066cc;
+}
+
+.center { text-align: center; }
+.left { text-align: left; }
+.right { text-align: right; }
+
+ul { margin-top: 0px; margin-left: 30px; }
+ol { margin-top: 0px; margin-left: 30px; }
+
+img.left { margin-right: 10px; margin-bottom: 10px; }
+img.right { margin-left: 10px; margin-bottom: 10px; }
+
+#LanguageKey { font-size: 10px; }
+#LanguageKey .Title { color: #2e5399; font-size: 12px; font-weight: bold; }
+#LanguageKey .List { padding-top: 5px; list-style-type: none; margin-left: 0px; }
+#LanguageKey .Code { color: #2e5399; font-size: 10px; font-weight: bold; }
+#LanguageKey .Name { color: #6e7b80; font-size: 10px; font-weight: bold; }
+
+.required input, .required select, .required .key { background-color: #dbecf8; }
+.required .intro { display: inline; }
+.required .key { border: 1px solid #849399; }
+
+.phone input { margin-right: 0px; }
+.noinputmargin input { margin: 0px; }
+.EmailBox .noinputmargin input { margin-right: 10px; }
+
+.securityinput input { margin-right: 3px; }
+
+.inputnote { color: #666666; font-size: 11px; font-family: verdana, arial, helvetica; margin-bottom: .5em; display: block; }
+
+.UserFile { border: 1px solid #afc4cc; padding: 8px; margin-top: 1em; }
+.UserFile a { color: #0066cc; font-weight: bold; font-size: 12px; margin-top: .25em; display: block; }
+.UserFile img { float: left; margin-right: 8px; }
+
+.CCBBox { border: 1px solid #afc4cc; padding: 8px; margin-top: 1em; }
+.CCBBox a { color: #0066cc; font-weight: bold; font-size: 12px; display: block; }
+
+.InputBox .checkboxesleft input { border: none; margin: 0px; margin-left: 4px; }
+.InputBox textarea { margin-right: 20px; margin-bottom: 3px; margin-left: 8px; border: 1px solid #2e5399; color: #404040; background-color: #f6fbff; font-family: verdana, arial, helvetica; font-size: 12px; }
+.tanomargin textarea { margin-left: 0px; }
+.noleft input { margin-left: 0px; }
+
+#maincontent-help a { color: #003399; font-weight: normal; }
+#maincontent-help a:hover, #maincontent-help a:active { color: #003399; font-weight: normal; }
+
+/* potentially needed classes */
+.GreyBackground { font-family: verdana, helvetica, sans-serif; background-color: #eeeeee; margin-bottom: 0; }
+.WhiteBackground { font-size: 11px; font-family: verdana, helvetica, sans-serif; background-color: white; margin-bottom: 0; }
+.LargeText { font-size: 18px; font-weight: bold; }
+.SmallerText { font-size: 11px; }
+.BoldText { font-weight: bold; }
+.RedText { color: red; }
+.SubsidiaryDrugName { color: green; }
+.DottedLine { border-bottom-width: .5pt; border-style: dotted; border-color: #eee; width: 100%; font-size: 1.8em; }
+.trademark { color: #92a3a9; font-weight: bold; }
+.Notes { font-size: 12pt; font-weight: bold; font-family: arial, verdana, helvetica, sans-serif; }
+.LinkButton { border: none; background-color: white; color: blue; text-decoration: underline; }

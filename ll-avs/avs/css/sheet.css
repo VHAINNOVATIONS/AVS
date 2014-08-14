@@ -1,0 +1,186 @@
+/**
+ * Sheet sheet.css
+ */
+
+/*** Header and Footer ***/
+
+div.footer {
+    display: none; 
+}
+
+#sheet-wrapper {
+	background:#ddd;
+	padding:20px;
+    text-align: center;
+}
+#sheet {
+	margin:0 auto;
+	border:1px solid #222;
+	background:#fff;
+	width:8.5in;
+    text-align: left;
+}
+#sheet-contents {
+	margin:0.5in;
+	font-family: Tahoma, Arial, Verdana, sans-serif;
+}
+#sheet-header{
+	overflow:hidden;
+	zoom:1;
+}
+#sheet-footer{
+	overflow:hidden;
+	zoom:1;	
+	text-align:center;
+	padding-top:20px;
+	border-top:1px solid #444;
+}
+#sheet-footer pre {
+	margin-top: 10px;
+	text-align: center;
+	font-family: Tahoma, Arial, Verdana, sans-serif;
+}
+#comments-div {
+    width: 600px;
+}
+#comments-area {
+	font-family: Tahoma, Arial, Verdana, sans-serif;
+    white-space: pre-wrap;       /* css-3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
+/*** Sections ***/
+
+#sheet-contents div.group {margin-top:25px;}
+#sheet-contents h2.group-title {
+	font-size:1.6em;
+	font-weight:bold;
+	margin:0;
+	padding:0 0 3px 0; /* or 0.5em? */
+}
+
+#sheet-contents div.section {
+	overflow:hidden;
+	zoom:1;
+	border-top:1px solid #444;
+}
+#sheet-contents div.section-hidden {
+    display: none;
+    line-height:0;
+    height:0;
+	overflow:hidden;
+	zoom:1;
+    padding: 0;
+}
+#sheet-contents h3.section-title {
+	float:left;
+	width:1.1in;
+	font-weight:bold;
+	font-size:1em;
+	margin:0;
+	padding:5px 0 5px 0.1in;
+}
+#sheet-contents div.section-body {
+	margin-left:1.25in;
+	padding:5px 0 5px 10px;
+}
+#sheet-contents div.section-body p {
+	margin:0;
+	padding:0;
+}
+#sheet-contents div.section-body ul {
+	margin-top:0;
+	margin-bottom:0;
+	padding: 0 10px 0.5em 0;
+}
+#sheet-contents div.section-body ul li {
+    list-style: disc;
+    padding: 0 10px 3px 0;
+}
+#sheet-contents div.orders-category {
+	font-weight:bold;
+}
+#sheet-contents div.orders-instructions {
+	font-style:italic;
+}
+#sheet-contents div.orders-subitem {
+	text-decoration:underline;
+}
+#sheet-contents div.orders-list ul li {
+	margin-left:0.5in;
+    list-style: disc;
+}
+#sheet-contents ul.two-columns {
+    float: left;
+	width: 290px;
+}
+#sheet-contents ul.two-columns li {
+    list-style: disc;
+}
+#sheet-contents div.med-instructions {
+    padding-bottom: 5px;
+}
+#sheet-contents div.med-name {
+	font-weight:bold;
+    padding-top: 5px;
+}
+#sheet-contents div.med-detail {
+	padding-left: 30px;
+}
+#sheet-contents div.appointment-category {
+    text-decoration:underline;
+    padding-bottom: 10px;
+}
+#sheet-contents div.appointment-instructions {
+    padding-bottom: 5px;
+}
+#sheet-contents div.appointment-date {
+    padding-top: 10px;
+    padding-bottom: 3px;
+	font-weight:bold;
+}
+#sheet-contents div.appointment-detail {
+	padding-left: 30px;
+    padding-bottom: 5px;
+}
+#sheet-contents div.visit-instructions {
+    padding-bottom: 5px;
+}
+#sheet-contents div.visit-comments {
+    padding-bottom: 50px;
+}
+#sheet-contents div.service-name {
+	font-weight:bold;
+    padding-top: 5px;
+}
+#sheet-contents div.service-detail {
+	padding-left: 30px;
+}
+#sheet-contents div.chart {
+	padding-bottom: 20px;
+}
+#sheet-contents strong {
+	font-weight: bold;
+}
+#sheet-contents em {
+	font-style: italic;
+}
+#sheet-contents pre.fixed-width {
+	font-family: Courier;
+    font-size: 8pt;
+}
+.normalFont {
+    font-size:10pt;
+}
+.largeFont {
+    font-size:12pt;
+}
+.veryLargeFont {
+    font-size:14pt;
+}
+
+
+

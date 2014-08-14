@@ -1,0 +1,32 @@
+#frame {
+	display: none;
+}
+
+#print {
+	display: block;
+}
+#print #sheet {
+	margin: 0;
+	border: none;
+	width: 100%;
+}
+#print #sheet-contents {
+	margin: 0;
+}
+
+@media all {
+    .page-break  { display: none; }
+}
+
+@media print {
+    body{ background-color:#FFFFFF; background-image:none; color:#000000; }
+    #ad{ display:none; }
+    #leftbar{ display:none; }
+    #contentarea{ width:100%; }
+    .page-break  { display: block; page-break-before: always; }   
+    #sheet-contents pre.fixed-width {
+        margin-left: 0;
+	    font-family: Courier;
+        font-size: 8pt;
+    }    
+}

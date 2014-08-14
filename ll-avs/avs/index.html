@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <title>After Visit Summary Launcher</title>
+        <script type="text/javascript">
+            var path = window.location.pathname.split("/");
+            var qry = location.search.substring(1);
+            var url;
+            if (qry != '')
+                url = window.location.protocol + "//" + window.location.host + '/' + path[1] + '/wizard/index.html?' + qry;
+            else
+                url =  window.location.protocol + "//" + window.location.host + '/avs/doc/index.html'
+            window.location = url;
+        </script>
+    </head>
+  <body>
+        After Visit Summary Launcher
+  </body>
+</html>

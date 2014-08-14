@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{8c1e2904-9ef6-496d-899f-4ab73a6ea507}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+    <DCC_DependencyCheckOutputName>..\bin\WebClient.exe</DCC_DependencyCheckOutputName>
+    <MainSource>WebClient.dpr</MainSource>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_DebugInformation>False</DCC_DebugInformation>
+    <DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
+    <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+    <DCC_Define>RELEASE</DCC_Define>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_Define>DEBUG</DCC_Define>
+    <DCC_UnitSearchPath>C:\wc\durkin\webclient\src;C:\wc\durkin\common\utils;C:\wc\durkin\components\EmbeddedWB_D5-D2009\Source;C:\wc\durkin\components\VistA\BDK32\Source;C:\wc\durkin\components\VistA\BDK32_P50\Source</DCC_UnitSearchPath>
+    <DCC_ResourcePath>C:\wc\durkin\webclient\src;C:\wc\durkin\common\utils;C:\wc\durkin\components\EmbeddedWB_D5-D2009\Source;C:\wc\durkin\components\VistA\BDK32\Source;C:\wc\durkin\components\VistA\BDK32_P50\Source</DCC_ResourcePath>
+    <DCC_ObjPath>C:\wc\durkin\webclient\src;C:\wc\durkin\common\utils;C:\wc\durkin\components\EmbeddedWB_D5-D2009\Source;C:\wc\durkin\components\VistA\BDK32\Source;C:\wc\durkin\components\VistA\BDK32_P50\Source</DCC_ObjPath>
+    <DCC_IncludePath>C:\wc\durkin\webclient\src;C:\wc\durkin\common\utils;C:\wc\durkin\components\EmbeddedWB_D5-D2009\Source;C:\wc\durkin\components\VistA\BDK32\Source;C:\wc\durkin\components\VistA\BDK32_P50\Source</DCC_IncludePath>
+    <DCC_ExeOutput>C:\wc\durkin\webclient\bin</DCC_ExeOutput>
+    <DCC_DcuOutput>C:\wc\durkin\webclient\dcu</DCC_DcuOutput>
+    <DCC_ObjOutput>C:\wc\durkin\webclient\dcu</DCC_ObjOutput>
+    <DCC_HppOutput>C:\wc\durkin\webclient\dcu</DCC_HppOutput>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <Borland.Personality>Delphi.Personality</Borland.Personality>
+    <Borland.ProjectType />
+    <BorlandProject>
+<BorlandProject><Delphi.Personality><Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters><Parameters Name="RunParams">title="After Visit Summary" stationNo="605" userDuz="9276" s="vista.loma-linda.med.va.gov" p="19205" url="http://localhost/checkout/wizard/index.html"</Parameters></Parameters><VersionInfo><VersionInfo Name="IncludeVerInfo">True</VersionInfo><VersionInfo Name="AutoIncBuild">False</VersionInfo><VersionInfo Name="MajorVer">1</VersionInfo><VersionInfo Name="MinorVer">0</VersionInfo><VersionInfo Name="Release">10</VersionInfo><VersionInfo Name="Build">10</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">1033</VersionInfo><VersionInfo Name="CodePage">1252</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName">Loma Linda VA Medical Center</VersionInfoKeys><VersionInfoKeys Name="FileDescription">Web Client</VersionInfoKeys><VersionInfoKeys Name="FileVersion">1.0.10.10</VersionInfoKeys><VersionInfoKeys Name="InternalName"></VersionInfoKeys><VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys><VersionInfoKeys Name="ProductName"></VersionInfoKeys><VersionInfoKeys Name="ProductVersion">1.0.10.10</VersionInfoKeys><VersionInfoKeys Name="Comments"></VersionInfoKeys></VersionInfoKeys><Excluded_Packages>
+      
+      
+      <Excluded_Packages Name="$(BDS)\bin\dcloffice2k100.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+      <Excluded_Packages Name="$(BDS)\bin\dclofficexp100.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+    </Excluded_Packages><Source><Source Name="MainSource">WebClient.dpr</Source></Source></Delphi.Personality></BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <Import Project="$(MSBuildBinPath)\Borland.Delphi.Targets" />
+  <ItemGroup>
+    <DelphiCompile Include="WebClient.dpr">
+      <MainSource>MainSource</MainSource>
+    </DelphiCompile>
+    <DCCReference Include="..\..\common\dialogs\UserMsgForm.pas">
+      <Form>UserMsg</Form>
+    </DCCReference>
+    <DCCReference Include="..\..\common\utils\LL_DateUtils.pas" />
+    <DCCReference Include="..\..\common\utils\LL_StringUtils.pas" />
+    <DCCReference Include="..\..\common\utils\LL_SysUtils.pas" />
+    <DCCReference Include="..\..\common\vista\ContextorUnit.pas" />
+    <DCCReference Include="GoToForm.pas">
+      <Form>GoToEntry</Form>
+    </DCCReference>
+    <DCCReference Include="WebClientForm.pas">
+      <Form>WebClientView</Form>
+    </DCCReference>
+  </ItemGroup>
+</Project>

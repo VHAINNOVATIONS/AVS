@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kaajee-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="kaajeeConfig.xsd">
+
+  <!-- host application name, used for login page display and logging -->
+  <host-application-name>Bed Management System</host-application-name>
+  
+  <!-- put each station number for KAAJEE login here -->
+  <login-station-numbers>
+    <station-number>605</station-number>
+  </login-station-numbers>
+ 
+
+  <!-- defined application context root Name -->
+  <context-root-name>/bms</context-root-name>
+
+ 
+  <!-- put the system announcement here. Use ~ for a line break, or ~ ~ for a 
+       paragraph break. -->
+  <system-announcement>
+    U.S. Government Computer System
+    ~ ~
+    U. S. government systems are intended to be used by authorized government network users for viewing and retrieving information only, except as otherwise explicitly authorized for official business and limited personal use in accordance with policy.  Information from these systems resides on and transmits through computer systems and networks funded by the government.  All access or use constitutes understanding and acceptance that there is no reasonable expectation of privacy in the use of Government networks or systems.
+	~ ~
+    The data and documents on this system include Federal records that contain sensitive information protected by various Federal statutes, including the Privacy Act, 5 U.S.C. Section 552a, and veterans' records confidentiality statutes such as 38 U.S.C. Sections 5701 and 7332.  Access to the data and records is on a need-to-know basis only.
+    ~ ~
+    All access or use of this system constitutes user understanding and acceptance of these terms and constitutes unconditional consent to review and action including (but not limited to) monitoring, recording, copying, auditing, inspecting, investigating, restricting access, blocking, tracking, disclosing to authorized personnel, or any other authorized actions by all authorized government and law enforcement personnel.
+	~ ~
+    Unauthorized user attempts or acts to (1) access, upload, change, or delete information on this system, (2) modify this system, (3) deny access to this system, (4) accrue resources for unauthorized use or (5) otherwise misuse this system are strictly prohibited.  Such attempts or acts are subject to action that may result in criminal, civil, or administrative penalties.
+  </system-announcement>
+  
+  <!-- set to true to return a user's "New Person" division multiple as part 
+       of login -->
+  <user-new-person-divisions retrieve="true" />
+
+  <!-- set to true to return all children divisions of the login division's 
+       computing facility, as part of login -->  
+  <computing-facility-divisions retrieve="true" />
+  
+  <cactus-insecure-mode enabled="false" />
+
+</kaajee-config>
+  
