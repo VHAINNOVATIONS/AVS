@@ -278,8 +278,6 @@ public class SheetAction extends BaseCardAction {
           this.patientDfn, super.getLocationIens(), super.getDatetimes(), viUploadsLocalPath, 
           CSS_CONTENTS, BASE_URI + IMG_PATH, this.getDocType()).start();
       
-      //new EncounterNoteThread(securityContext, pceDataThread.getEncounterInfo()).start();
-      
       return writeJson(this.avsJson);
     } else if (this.media == MEDIA_XML) {
       return writeXml(this.dataModel);
@@ -925,7 +923,7 @@ public class SheetAction extends BaseCardAction {
     // Acquisition Site (station number)
     params.add("ACQS^" + this.getStationNo());
     // Procedure Date
-    params.add("PXDT^" + String.valueOf(FMDateUtils.dateToFMDate(now)));
+    params.add("PXDT^" + String.valueOf(FMDateUtils.dateTimeToFMDateTime(now)));
     // Tracking ID
     params.add("TRKID^" + trkId);    
     // Procedure IEN (TIU document IEN)
@@ -1063,6 +1061,20 @@ public class SheetAction extends BaseCardAction {
       log.error("Error setting remote va meds html", e);
     }
     
+    this.docType = EncounterInfo.AVS;
+    this.media = MEDIA_PDF;
+    this.initialRequest = false;
+    this.initialize();
+    this.buildAvs();
+    
+    if ((this.printAllServiceDescriptions) || 
+        ((this.selectedServiceDescriptions != null) && !this.selectedServiceDescriptions.isEmpty())) {
+      this.buildAdditionalInformationSheet();
+    }
+    new PdfFileThread(cleanCommentsForPdf(this.avsBody, this.fontClass), this.additionalInformationSheetBody, this.getStationNo(), 
+        this.patientDfn, this.getLocationIens(), this.getDatetimes(), viUploadsLocalPath, 
+        CSS_CONTENTS, BASE_URI + IMG_PATH, this.getDocType()).start();     
+    
     return success();
   }
   
@@ -1086,6 +1098,20 @@ public class SheetAction extends BaseCardAction {
     } catch(Exception e) {
       log.error("Error setting remote non-va meds html", e);
     }
+    
+    this.docType = EncounterInfo.AVS;
+    this.media = MEDIA_PDF;
+    this.initialRequest = false;
+    this.initialize();
+    this.buildAvs();
+    
+    if ((this.printAllServiceDescriptions) || 
+        ((this.selectedServiceDescriptions != null) && !this.selectedServiceDescriptions.isEmpty())) {
+      this.buildAdditionalInformationSheet();
+    }
+    new PdfFileThread(cleanCommentsForPdf(this.avsBody, this.fontClass), this.additionalInformationSheetBody, this.getStationNo(), 
+        this.patientDfn, this.getLocationIens(), this.getDatetimes(), viUploadsLocalPath, 
+        CSS_CONTENTS, BASE_URI + IMG_PATH, this.getDocType()).start();     
     
     return success();
   }  

@@ -107,8 +107,8 @@ public class ClinicsVisitedThread extends SheetDataThread implements QSCallBack 
     } finally {
       String content = TPL_SECTION
         .replace("__SECTION_CLASS__", "section")
-        .replace("__SECTION_ID_SUFFIX__", "procedures")
-        .replace("__SECTION_TITLE__", super.getStringResource("procedures"))
+        .replace("__SECTION_ID_SUFFIX__", "clinicVisits")
+        .replace("__SECTION_TITLE__", super.getStringResource("clinicVisits"))
         .replace("__CONTENTS__", body.toString());
       
       setContentData("clinicsVisited", content, clinicsVisited);

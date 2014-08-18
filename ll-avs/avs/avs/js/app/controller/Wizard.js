@@ -1309,7 +1309,6 @@ Ext.define('LLVA.AVS.Wizard.controller.Wizard', {
         icdCodes = searchForm.down('textfield[id=Icd9CodesTextField]').getValue();
         cptCodes = searchForm.down('textfield[id=CptCodesTextField]').getValue();
         language = searchForm.down('combobox[id=LanguageCombo]').getValue();
-        
         if ((keywords == '') && (meshCodes == '') && (icdCodes == '') && (cptCodes == '')) {
             alert('Please provide one or more search values.');
         } else {
@@ -1431,9 +1430,7 @@ Ext.define('LLVA.AVS.Wizard.controller.Wizard', {
                     printerIen: vistaPrinter.ien,
                     printerIp: vistaPrinter.ipAddress,
                     printerName: vistaPrinter.name,
-                    chartFilenames: chartFilenames,
-                    remoteVaMedicationsHtml: wizard.remoteVaMedicationsHtml,
-                    remoteNonVaMedicationsHtml: wizard.remoteNonVaMedicationsHtml,
+                    chartFilenames: chartFilenames
                 },        
                 success: function (result, request) {
                 }, 
@@ -1829,9 +1826,7 @@ Ext.define('LLVA.AVS.Wizard.controller.Wizard', {
                 wizard.charts,
                 chartFilenames,
                 wizard.locked,
-                wizard.curLanguage,
-                wizard.remoteVaMedicationsHtml,
-                wizard.remoteNonVaMedicationsHtml);
+                wizard.curLanguage);
             window.location = url;   
             wizard.startTimer();
         });            
